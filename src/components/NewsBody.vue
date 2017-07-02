@@ -53,6 +53,19 @@ export default {
 
       });
 
+  },
+  watch: {
+    id: function(){
+      this.$http.get('https://newsapi.org/v1/articles?source=' + this.id + '&apiKey=712bc1362cc14cb8aaee1db8d8b43c5b').then(
+        function(data){
+          return data.json();
+        }).then(function(data){
+            this.content = data.articles;
+            console.log(this.content);
+
+        });
+
+    }
   }
 }
 //712bc1362cc14cb8aaee1db8d8b43c5b

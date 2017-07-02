@@ -20,7 +20,7 @@
   </p>
   <p class="control"><a type="button" v-bind:href="source.url" class="button is-warning " target="_blank">Goto Site</a></p>
     </div>
-    <p class="subtitle is-small">{{source.description}}</p>
+    <p class="subtitle is-small" >{{source.description}}</p>
 
       </div>
 
