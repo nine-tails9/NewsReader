@@ -3,21 +3,24 @@
     <section class="hero is-small is-primary">
       <div class="container">
         <div class="hero-head has-text-centered">
-
-        <h2 class="title">News Sources </h2>
-
+        <h2 class="title">News Sources</h2>
       </div>
+
       <div class="hero-body">
-        <div class="field">
-  <label class="label">News Sources</label>
+        <label class="label">News Sources</label>
+
+        <div class="field has-addons">
+
   <p class="control">
     <span class="select">
-      <select>
-        <option v-for="source in sources">{{source.name}}</option>
+      <select v-on:change = "ChangeSource">
+        <option v-bind:value="source.id" v-for="source in sources">{{source.name}}</option>
       </select>
     </span>
   </p>
-</div>
+  <p class="control"><a type="button" v-bind:href="source.url" class="button is-warning " target="_blank">Goto Site</a></p>
+    </div>
+    <p class="subtitle is-small">{{source.description}}</p>
 
       </div>
 
@@ -29,10 +32,19 @@
 </template>
 
 <script>
+import { bus } from '../main';
 export default {
+  props: {
+    id: {
+      type: String,
+      required: true
+     }
+  },
   data () {
     return {
-      sources: []
+      sources: [],
+      source : ' ',
+      ts: ' '
 
     }
   },
@@ -42,12 +54,21 @@ export default {
     }).then(function(data){
     //  console.log(data);
     this.sources = data.sources;
-    console.log(this.sources);
-    for(let source in this.sources){
-      console.log(this.sources[source].name);
-    }
+
     //  console.log(tarr);
     });
+  },
+  methods: {
+    ChangeSource: function(e){
+      for(var i=0;i<this.sources.length;i++){
+        if(this.sources[i].id == e.target.value){
+          this.source = this.sources[i];
+          this.id = this.sources[i].id;
+          //console.log(this.id);
+          bus.$emit('Headlines',this.id);
+        }
+      }
+    }
   }
 }
 </script>
