@@ -13,7 +13,7 @@
   <p class="control">
     <span class="select">
       <select>
-        <option v-for="source in sources"></option>
+        <option v-for="source in sources">{{source.name}}</option>
       </select>
     </span>
   </p>
@@ -41,16 +41,11 @@ export default {
       return data.json();
     }).then(function(data){
     //  console.log(data);
-      var tarr = [];
-      for(let name in data){
-        if(name=="sources"){
-          for(let id in name){
-            console.log(id);
-          }
-        }
-        //tarr.push(data[name].name);
-
-      }
+    this.sources = data.sources;
+    console.log(this.sources);
+    for(let source in this.sources){
+      console.log(this.sources[source].name);
+    }
     //  console.log(tarr);
     });
   }
